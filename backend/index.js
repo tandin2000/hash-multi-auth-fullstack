@@ -11,7 +11,7 @@ const app = express();
 
 mongoose
   .connect(
-    "mongodb+srv://tandin:Reskar@27@db.soqaf.mongodb.net/?retryWrites=true&w=majority",
+    process.env.MONGODB_URI,
     { useNewUrlParser: true, useUnifiedTopology: true }
   )
   .then((_) => console.log("Connected to DB"))
