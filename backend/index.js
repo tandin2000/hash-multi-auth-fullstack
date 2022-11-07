@@ -7,6 +7,7 @@ const cors = require("cors");
 const https = require("https");
 const fs = require("fs");
 const path = require("path");
+const {models} = require("mongoose");
 require("dotenv").config();
 
 const app = express();
@@ -47,3 +48,5 @@ if (process.env.PROTOCOL === "https") {
 } else if (process.env.PROTOCOL === "http") {
   app.listen(8000, () => console.log("Server running on port 8000"));
 }
+
+module.exports = app;
