@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const userRoutes = require("./userRoutes");
+const imageRoutes = require("./imageRoutes");
 const cors = require("cors");
 const https = require("https");
 const fs = require("fs");
@@ -26,8 +27,9 @@ app.get("/", (request, response) => {
 });
 
 app.use("/auth", userRoutes);
+app.use("/image", imageRoutes);
 
-if (process.env.PROTOCOL == "https") {
+if (process.env.PROTOCOL === "https") {
   // Configuring HTTPs with TLS (Encryption)
   const secureServer = https.createServer(
     {
@@ -39,6 +41,6 @@ if (process.env.PROTOCOL == "https") {
   secureServer.listen(8000, () =>
     console.log("Secure server running on port 8000")
   );
-} else if (process.env.PROTOCOL == "http") {
+} else if (process.env.PROTOCOL === "http") {
   app.listen(8000, () => console.log("Server running on port 8000"));
 }
