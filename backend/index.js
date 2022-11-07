@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const userRoutes = require("./userRoutes");
 const imageRoutes = require("./imageRoutes");
+const messageRoutes = require("./messageRoutes");
 const cors = require("cors");
 const https = require("https");
 const fs = require("fs");
@@ -23,11 +24,13 @@ app.use(express.json());
 
 // Default route
 app.get("/", (request, response) => {
-  response.send("Health check! Alive");
+  response.send("Secure Backend Is Running!");
 });
 
+// Routers.
 app.use("/auth", userRoutes);
 app.use("/image", imageRoutes);
+app.use("/message", messageRoutes);
 
 if (process.env.PROTOCOL === "https") {
   // Configuring HTTPs with TLS (Encryption)
