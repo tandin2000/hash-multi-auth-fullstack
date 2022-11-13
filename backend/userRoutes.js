@@ -12,11 +12,6 @@ router.post("/signup", async (req, res) => {
     return res.status(201).send({ error: "Data not formatted properly" });
   }
 
-  // JSON Web Tokens
-    const user = { username: body.username, number: body.number, role: body.role };
-    const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET);
-
-
   const userValidation = await User.findOne({ username: body.username });
   if (userValidation) {
     res.status(201).json({ error: "User exist!" });
@@ -27,7 +22,7 @@ router.post("/signup", async (req, res) => {
       const salt = await bcrypt.genSalt(10);
       // now we set user password to hashed password
       user.password = await bcrypt.hash(user.password, salt);
-      user.save().then((doc) => res.status(200).send({user: doc, token: accessToken}));
+      user.save().then((doc) => res.status(200).send({user: doc}));
   }
 
 });
@@ -51,7 +46,10 @@ router.post("/login", async (req, res) => {
             number: user.number,
             role: user.role
         }
-      res.status(200).json(Payload);
+      // JSON Web Tokens
+      const jwtUser = { username: body.username, number: body.number, role: body.role };
+      const accessToken = jwt.sign(jwtUser, process.env.ACCESS_TOKEN_SECRET);
+      res.status(200).json({payload: Payload, token: accessToken});
 
     //   return user;
     }else{
