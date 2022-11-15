@@ -42,7 +42,6 @@ function SignUp() {
           role: role
         }
 
-        console.log(payload)
         RestService.fetchSignIn(payload).then((response)=>{
           if(response.status === 201){
             SetErrorValue(response.data.error);

@@ -3,12 +3,14 @@ import axios from "axios";
 
 class RestService {
 
+  tokenData = JSON.parse(localStorage.getItem('dataKey'));
+
   fetchSignUp(formData){
 
     const config = {
       headers: {
         'content-type': 'application/json',
-        'Access-Control-Allow-Origin' : '*'
+        'Access-Control-Allow-Origin' : '*' 
       },
     };
 
@@ -27,7 +29,8 @@ class RestService {
     const config = {
       headers: {
         'content-type': 'application/json',
-        'Access-Control-Allow-Origin' : '*'
+        'Access-Control-Allow-Origin' : '*',
+        'Authorization': 'Bearer ' + this.tokenData.token 
       },
     };
 
@@ -46,7 +49,8 @@ class RestService {
     const config = {
       headers: {
         'content-type': 'application/json',
-        'Access-Control-Allow-Origin' : '*'
+        'Access-Control-Allow-Origin' : '*',
+        'Authorization': 'Bearer ' + this.tokenData.token  
       }
     };
 
@@ -70,7 +74,8 @@ class RestService {
     const config = {
       headers: {
         'content-type': 'application/json',
-        'Access-Control-Allow-Origin' : '*'
+        'Access-Control-Allow-Origin' : '*',
+        'Authorization': 'Bearer ' + this.tokenData.token 
       }
     };
     return  axios.post(
@@ -88,7 +93,8 @@ class RestService {
     const config = {
       headers: {
         'content-type': 'application/json',
-        'Access-Control-Allow-Origin' : '*'
+        'Access-Control-Allow-Origin' : '*',
+        'Authorization': 'Bearer ' + this.tokenData.token 
       }
     };
     // console.log(fileUpload.selectedFile)
@@ -98,8 +104,8 @@ class RestService {
       // Update the formData object
       formData.append(
         "image",
-        fileUpload.selectedFile,
-        fileUpload.selectedFile.name
+        fileUpload?.selectedFile,
+        fileUpload?.selectedFile?.name
       );
 
     return  axios.post(

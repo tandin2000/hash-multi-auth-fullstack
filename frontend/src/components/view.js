@@ -75,15 +75,21 @@ function View() {
 
     const onFileUpload = () => { 
       // console.log();
-      RestService.sendFile(fileUpload).then((response)=>{
-        if(response.status === 201){
-          alert("File  sent failed!");
-        }
 
-        if(response.status === 200){
-          alert("File  sent!");
-        }
-      });
+      if(fileUpload.selectedFile !== undefined) {
+        RestService.sendFile(fileUpload).then((response)=>{
+          if(response.status === 201){
+            alert("File  sent failed!");
+          }
+  
+          if(response.status === 200){
+            alert("File  sent!");
+          }
+        });
+      }else{
+        alert("Select a File")
+      }
+      
 
     }
 
