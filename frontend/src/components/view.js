@@ -6,6 +6,10 @@ import img2 from '../img/hacker.gif'
 
 
 import "./style.css"
+const styles = {
+  border: '1px solid rgba(1, 1, 1, 0.1)', 
+  padding: 5,
+};
 function View() {
     let data = JSON.parse(localStorage.getItem('dataKey'));
     const [hiddenField, setHiddenField] = useState(false);
@@ -127,7 +131,9 @@ function View() {
     }
 
     if(data.role === 'manager'){
+      
       return (
+        
         <>
 
         <article className="card">
@@ -143,6 +149,26 @@ function View() {
             </p>
           </div>
         </article>
+        <div className="mt-2" border="1" style={styles}>
+            <center>
+              <textarea cols="30">
+
+              </textarea><br/>
+              <button  className="btn btn-primary mt-2">
+                Send Message
+              </button>
+            </center><br/>
+        </div>
+        <div className="mt-2"  border="1" style={styles}>
+           {/* onChange={this.onFileChange}  */}
+           <input type="file" />
+            {/* onClick={this.onFileUpload} */}
+            <center>
+              <button className="btn btn-primary mt-2" >
+                Upload!
+              </button>
+            </center>
+        </div>
         </>
       )
     }
@@ -162,8 +188,19 @@ function View() {
               Your username is "{data.username}" and you are assigned as "{data.role}". Honored to have you in our platform. 
             
             </p>
+
           </div>
         </article>
+            <p className="mt-2" style={styles}>
+            <center>
+              <textarea cols="30">
+
+              </textarea><br/>
+              <button  className="btn btn-primary mt-2">
+                Send Message
+              </button>
+            </center>
+            </p>
         </>
       )
     }
