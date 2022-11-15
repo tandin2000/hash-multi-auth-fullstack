@@ -34,6 +34,7 @@ router.get("/jwt-testing", (req, res) => {
 })
 
 router.post("/login", async (req, res) => {
+  authenticateToken(res, req)
   const body = req.body;
   const user = await User.findOne({ username: body.username });
   if (user) {
