@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import RestService from "../API/RestApi";
 import img from '../img/airplane.gif'
 import img2 from '../img/hacker.gif'
@@ -14,14 +14,12 @@ function View() {
 
     const [hiddenStatus, setHiddenStatus] = useState(false);
     const [errorValue, SetErrorValue] = useState("");
-
-
     const resetFunction = () => {
       setHiddenField(true);
     } 
 
     const addStaffFunction = () => {
-      window.open("http://localhost:3000/sign-up","_self");
+      window.open("https://localhost:3000/sign-up","_self");
     }
 
    
@@ -54,11 +52,12 @@ function View() {
         }
       });
     }
+
     if(data.role === 'admin'){
       return (
         <>
         <center>
-          <img src={img2} style={{height:"100px", width:"100px","margin-top":"-15px"}} />
+          <img alt=" "src={img2} style={{height:"100px", width:"100px","margin-top":"-15px"}} />
         </center>
 
         <article className="card">
@@ -133,7 +132,7 @@ function View() {
 
         <article className="card">
           <div className="card_content">
-       <img src={img} style={{height:"50px", width:"50px","margin-top":"0px", float:"right"}} />
+       <img alt=" "src={img} style={{height:"50px", width:"50px","margin-top":"0px", float:"right"}} />
             <h3 className="card_title">
               Hello {data.name}
             </h3>
@@ -154,7 +153,7 @@ function View() {
 
         <article className="card">
           <div className="card_content">
-       <img src={img} style={{height:"50px", width:"50px","margin-top":"0px", float:"right"}} />
+       <img alt=" "src={img} style={{height:"50px", width:"50px","margin-top":"0px", float:"right"}} />
             <h3 className="card_title">
               Hello {data.name}
             </h3>

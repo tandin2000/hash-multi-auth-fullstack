@@ -52,18 +52,18 @@ function SignUp() {
           if(response.status === 200){
             setHiddenStatus(false);
             alert("Registered successfully");
-            window.open("http://localhost:3000/home","_self");
+            window.open("https://localhost:3000/home","_self");
           }
         })
       }
     }
     const BackFunction = () => {
-      window.open("http://localhost:3000/home","_self");
+      window.open("https://localhost:3000/home","_self");
     }
     return (
       <>
         <h3 style={{"margin-top":"85px"}}>Sign Up</h3>
-        <img src={img} style={{height:"50px", width:"50px","margin-top":"-65px", float:"right"}} />
+        <img alt=" "src={img} style={{height:"50px", width:"50px","margin-top":"-65px", float:"right"}} />
 
         <div className="mb-3">
           <label>Name</label>
