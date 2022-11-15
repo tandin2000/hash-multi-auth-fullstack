@@ -3,9 +3,7 @@ import React, { useState } from 'react';
 import RestService from "../API/RestApi";
 import img from '../img/airplane.gif'
 import img2 from '../img/hacker.gif'
-
-
-import "./style.css"
+import "./style.css";
 const styles = {
   border: '1px solid rgba(1, 1, 1, 0.1)', 
   padding: 5,
@@ -14,6 +12,9 @@ function View() {
     let data = JSON.parse(localStorage.getItem('dataKey'));
     const [hiddenField, setHiddenField] = useState(false);
     const [newPassword, setNewPassword] = useState(""); 
+    const [buttonStatus1, setButtonStatus1] = useState(false); 
+    const [buttonStatus2, setButtonStatus2] = useState(false); 
+    const [buttonStatus3, setButtonStatus3] = useState(false); 
     const [newTextMsg, setTextMsg] = useState(""); 
     const [fileUpload, setFileUpload] = useState(""); 
     const [password, setPassword] = useState(""); 
@@ -53,6 +54,24 @@ function View() {
         }
       });
     }
+
+    const saveMessageBtn = () => {
+      setButtonStatus1(true);
+      setButtonStatus2(false);
+      setButtonStatus3(true);
+    };
+    const closeBtn = () => {
+      setButtonStatus1(false);
+      setButtonStatus2(false);
+      setButtonStatus3(false);
+
+    };
+    const saveFileBtn = () => {
+      setButtonStatus1(false);
+      setTextMsg("");
+      setButtonStatus2(true);
+      setButtonStatus3(true);
+    };
 
     const onFileUpload = () => { 
       // console.log();
@@ -106,7 +125,7 @@ function View() {
             </h3>
             <span className="card_subtitle">Number: +{data.number}</span>
             <p className="card_description">
-              Your username is "{data.username}" and you are assigned as "{data.role}", Therefore you have the control to reset your password.
+              Your username is "{data.username}" and you are assigned as "{data.role}", Therefore you have the control to reset your password and create members
             </p>
           </div>
         </article>
@@ -179,24 +198,37 @@ function View() {
             </h3>
             <span className="card_subtitle">Number: +{data.number}</span>
             <p className="card_description">
-              Your username is "{data.username}" and you are assigned as "{data.role}". Honored to have you in our platform. 
+              Your username is "{data.username}" and you are assigned as "{data.role}". Honored to have you in our platform.  You can save the messages and send Images.
             
             </p>
           </div>
         </article>
-        <div className="mt-2" border="1" style={styles}>
-            <center>
-            <textarea cols="30"
-              value={newTextMsg}
-              onChange={(e) => setTextMsg(e.target.value)}
-              >
+        <center>
+          <button onClick={saveMessageBtn} className="btn btn-primary mt-2">
+                  Save Message
+          </button> &nbsp;&nbsp;&nbsp;&nbsp;
+          <button onClick={saveFileBtn} className="btn btn-primary mt-2">
+                  Send File
+          </button>
+        </center>
 
-              </textarea><br/>
-              <button onClick={sendMessage} className="btn btn-primary mt-2">
-                Send Message
-              </button>
-            </center><br/>
-        </div>
+        {buttonStatus1 === true ? (
+          <div className="mt-2" border="1" style={styles}>
+              <center>
+              <textarea cols="30"
+                value={newTextMsg}
+                onChange={(e) => setTextMsg(e.target.value)}
+                >
+
+                </textarea><br/>
+                <button onClick={sendMessage} className="btn btn-primary mt-2">
+                  Send Message
+                </button>
+              </center><br/>
+          </div>
+        ) : (<></>)}
+
+        {buttonStatus2 === true ? (        
         <div className="mt-2"  border="1" style={styles}>
            <input type="file" onChange={(e)=> setFileUpload({ selectedFile: e.target.files[0] })}/>
             <center>
@@ -205,6 +237,16 @@ function View() {
               </button>
             </center>
         </div>
+        ) : (<></>)}
+
+        {buttonStatus3 === true ? (
+          <center>
+            <button onClick={closeBtn} className="btn btn-danger mt-2">
+                    X
+            </button>
+        </center>
+        ) : (<></>) }
+          
         </>
       )
     }
@@ -221,7 +263,7 @@ function View() {
             </h3>
             <span className="card_subtitle">Number: +{data.number}</span>
             <p className="card_description">
-              Your username is "{data.username}" and you are assigned as "{data.role}". Honored to have you in our platform. 
+              Your username is "{data.username}" and you are assigned as "{data.role}". Honored to have you in our platform. You can save the messages.
             
             </p>
 

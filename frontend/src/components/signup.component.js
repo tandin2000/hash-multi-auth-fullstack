@@ -63,7 +63,7 @@ function SignUp() {
     return (
       <>
         <h3 style={{"margin-top":"85px"}}>Sign Up</h3>
-        <img alt=" "src={img} style={{height:"50px", width:"50px","margin-top":"-65px", float:"right"}} />
+        <img alt="image"src={img} style={{height:"50px", width:"50px","margin-top":"-65px", float:"right"}} />
 
         <div className="mb-3">
           <label>Name</label>

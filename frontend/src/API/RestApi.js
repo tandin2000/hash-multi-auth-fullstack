@@ -91,7 +91,7 @@ class RestService {
         'Access-Control-Allow-Origin' : '*'
       }
     };
-    console.log(fileUpload.selectedFile)
+    // console.log(fileUpload.selectedFile)
 
     const formData = new FormData();
      
