@@ -14,6 +14,8 @@ function View() {
     let data = JSON.parse(localStorage.getItem('dataKey'));
     const [hiddenField, setHiddenField] = useState(false);
     const [newPassword, setNewPassword] = useState(""); 
+    const [newTextMsg, setTextMsg] = useState(""); 
+    const [fileUpload, setFileUpload] = useState(""); 
     const [password, setPassword] = useState(""); 
 
     const [hiddenStatus, setHiddenStatus] = useState(false);
@@ -32,6 +34,39 @@ function View() {
       setNewPassword("");
       setHiddenField(false);
     } 
+
+    const sendMessage = () => {
+      const payload ={
+        userId:data.username,
+        message:newTextMsg
+      }
+
+      RestService.sendMsg(payload).then((response)=>{
+        if(response.status === 201){
+          setTextMsg("");
+          alert("Message  sent failed!");
+        }
+
+        if(response.status === 200){
+          setTextMsg("");
+          alert("Message  sent!");
+        }
+      });
+    }
+
+    const onFileUpload = () => { 
+      // console.log();
+      RestService.sendFile(fileUpload).then((response)=>{
+        if(response.status === 201){
+          alert("File  sent failed!");
+        }
+
+        if(response.status === 200){
+          alert("File  sent!");
+        }
+      });
+
+    }
 
     const UpdateFunction = () =>{
       const payload = {
@@ -151,20 +186,21 @@ function View() {
         </article>
         <div className="mt-2" border="1" style={styles}>
             <center>
-              <textarea cols="30">
+            <textarea cols="30"
+              value={newTextMsg}
+              onChange={(e) => setTextMsg(e.target.value)}
+              >
 
               </textarea><br/>
-              <button  className="btn btn-primary mt-2">
+              <button onClick={sendMessage} className="btn btn-primary mt-2">
                 Send Message
               </button>
             </center><br/>
         </div>
         <div className="mt-2"  border="1" style={styles}>
-           {/* onChange={this.onFileChange}  */}
-           <input type="file" />
-            {/* onClick={this.onFileUpload} */}
+           <input type="file" onChange={(e)=> setFileUpload({ selectedFile: e.target.files[0] })}/>
             <center>
-              <button className="btn btn-primary mt-2" >
+              <button className="btn btn-primary mt-2" onClick={onFileUpload} >
                 Upload!
               </button>
             </center>
@@ -193,10 +229,13 @@ function View() {
         </article>
             <p className="mt-2" style={styles}>
             <center>
-              <textarea cols="30">
+              <textarea cols="30"
+              value={newTextMsg}
+              onChange={(e) => setTextMsg(e.target.value)}
+              >
 
               </textarea><br/>
-              <button  className="btn btn-primary mt-2">
+              <button onClick={sendMessage} className="btn btn-primary mt-2">
                 Send Message
               </button>
             </center>

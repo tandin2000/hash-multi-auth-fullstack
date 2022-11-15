@@ -66,6 +66,53 @@ class RestService {
     );
   }
 
+  sendMsg(formData){
+    const config = {
+      headers: {
+        'content-type': 'application/json',
+        'Access-Control-Allow-Origin' : '*'
+      }
+    };
+    return  axios.post(
+      "https://localhost:8000/message/save",
+      formData,
+      config
+      ).then(res => {
+        const data = res;
+        return data;
+      }
+    );
+  }
+
+  sendFile(fileUpload){
+    const config = {
+      headers: {
+        'content-type': 'application/json',
+        'Access-Control-Allow-Origin' : '*'
+      }
+    };
+    console.log(fileUpload.selectedFile)
+
+    const formData = new FormData();
+     
+      // Update the formData object
+      formData.append(
+        "image",
+        fileUpload.selectedFile,
+        fileUpload.selectedFile.name
+      );
+
+    return  axios.post(
+      "https://localhost:8000/image/upload",
+      formData,
+      config
+      ).then(res => {
+        const data = res;
+        return data;
+      }
+    );
+  }
+
 }
 
 export default new RestService();
