@@ -10,8 +10,19 @@ const path = require("path");
 const {models} = require("mongoose");
 require("dotenv").config();
 const logger = require('./logger');
+var toobusy = require('toobusy-js');
 
 const app = express();
+
+// middleware which blocks requests when we're too busy
+app.use(function(req, res, next) {
+  if (toobusy()) {
+    logger.error(`High Server Load`)
+    res.send(503, "I'm busy right now, sorry.");
+  } else {
+    next();
+  }
+});
 
 mongoose
   .connect(
@@ -54,5 +65,12 @@ if (process.env.PROTOCOL === "https") {
   app.listen(8000, () => console.log("Server running on port 8000"));
   logger.info(`Server (HTTP) started and running on http://localhost:8000`)
 }
+
+process.on('SIGINT', function() {
+  server.close();
+  // calling .shutdown allows your process to exit normally
+  toobusy.shutdown();
+  process.exit();
+});
 
 module.exports = app;
