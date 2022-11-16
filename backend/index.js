@@ -48,10 +48,11 @@ if (process.env.PROTOCOL === "https") {
   );
   secureServer.listen(8000, () =>
     console.log("Secure server running on port 8000"),
-    logger.info(`Server started and running on http://localhost:8000`)
+    logger.info(`Secure server (HTTPs) started and running on http://localhost:8000`)
   );
 } else if (process.env.PROTOCOL === "http") {
   app.listen(8000, () => console.log("Server running on port 8000"));
+  logger.info(`Server (HTTP) started and running on http://localhost:8000`)
 }
 
 module.exports = app;

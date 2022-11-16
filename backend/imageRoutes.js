@@ -7,6 +7,7 @@ const { mongo } = require("mongoose");
 const express = require("express");
 const router = express.Router();
 require('dotenv').config();
+const logger = require('./logger');
 
 const mongoURI = process.env.MONGODB_URI;
 const conn = mongoose.createConnection(mongoURI, {
@@ -19,7 +20,8 @@ let gfs;
 conn.once('open', () => {
     gfs = new mongoose.mongo.GridFSBucket(conn.db, {
         bucketName: "images",
-    })
+    }),
+    logger.error(`Connection established to the Image bucket`)
 })
 
 const storage = new GridFsStorage({
@@ -81,18 +83,26 @@ router.post('/upload/', uploadMiddleware, async (req, res) => {
     const {id} = file;
     if (file.size > 5000000) {
         deleteImage(id);
+        logger.error(`File exceed 5MB size cap`)
         return res.status(400).send("file may not exceed 5MB");
     }
     console.log('uploaded file: ', file);
+    logger.info(`File uploaded to MongoDB ${file}`)
     return res.send(file.id);
 })
 
 // Delete images when the file are larger than 5MB
 const deleteImage = id => {
-    if (!id || id === 'undefine') return res.status(400).send('no image id');
+    if (!id || id === 'undefine') {
+        logger.info(`Image deleted from the MongoDB`)
+        return res.status(400).send('no image id');
+    } 
     const _id = new mongoose.Type.ObjectId(id);
     gfs.delete(_id, err => {
-        if (err) return res.status(500).send('Image deletion error');
+        if (err) {
+            logger.error(`Error deleting Image from MongoDB`)
+            return res.status(500).send('Image deletion error');
+        }
     })
 }
 
