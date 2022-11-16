@@ -5,6 +5,7 @@ const crypto = require('crypto');
 const path = require('path');
 const { mongo } = require("mongoose");
 const express = require("express");
+const {authenticateToken} = require("./jwtHandler");
 const router = express.Router();
 require('dotenv').config();
 const logger = require('./logger');
@@ -79,6 +80,7 @@ const uploadMiddleware = (req, res, next) => {
 
 // Post route to handle the In coming file
 router.post('/upload/', uploadMiddleware, async (req, res) => {
+    authenticateToken(res, req)
     const {file} = req;
     const {id} = file;
     if (file.size > 5000000) {

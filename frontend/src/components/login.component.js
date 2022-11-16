@@ -30,19 +30,22 @@ function Login(props) {
            }
   
            if(response.status === 200){
+            // console.log(response)
             setHiddenStatus(false);
             const data = {
-                username:response.data.username,
-                name:response.data.name,
-                number:response.data.number,
-                role:response.data.role,
+                username:response?.data?.payload?.username,
+                name:response?.data?.payload?.name,
+                number:response?.data?.payload?.number,
+                role:response?.data?.payload?.role,
+                token:response?.data?.token
             }
             const loginStatus = {
               status: false
             }
+            // console.log(data,loginStatus )
             localStorage.setItem('dataKey', JSON.stringify(data));
             localStorage.setItem('status', JSON.stringify(loginStatus));
-            window.open("http://localhost:3000/home","_self")
+            window.open("https://localhost:3000/home","_self")
            }
         })
       }
@@ -50,7 +53,7 @@ function Login(props) {
 
     return (
       <>
-        <img src={img} style={{height:"50px", width:"50px"}} />
+        <img alt=" "src={img} style={{height:"50px", width:"50px"}} />
         <h3 style={{"margin-top":"-35px"}}>Sign In</h3>
         <div className="mb-3">
           <label>Username</label>
