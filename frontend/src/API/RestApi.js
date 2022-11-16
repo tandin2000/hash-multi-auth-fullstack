@@ -3,17 +3,19 @@ import axios from "axios";
 
 class RestService {
 
+  tokenData = JSON.parse(localStorage.getItem('dataKey'));
+
   fetchSignUp(formData){
 
     const config = {
       headers: {
         'content-type': 'application/json',
-        'Access-Control-Allow-Origin' : '*'
+        'Access-Control-Allow-Origin' : '*' 
       },
     };
 
     return  axios.post(
-      "http://localhost:8000/auth/login",
+      "https://localhost:8000/auth/login",
       formData,
       config
       ).then(res => {
@@ -27,12 +29,13 @@ class RestService {
     const config = {
       headers: {
         'content-type': 'application/json',
-        'Access-Control-Allow-Origin' : '*'
+        'Access-Control-Allow-Origin' : '*',
+        'Authorization': 'Bearer ' + this.tokenData.token 
       },
     };
 
     return  axios.post(
-      "http://localhost:8000/auth/signup",
+      "https://localhost:8000/auth/signup",
       formData,
       config
       ).then(res => {
@@ -46,7 +49,8 @@ class RestService {
     const config = {
       headers: {
         'content-type': 'application/json',
-        'Access-Control-Allow-Origin' : '*'
+        'Access-Control-Allow-Origin' : '*',
+        'Authorization': 'Bearer ' + this.tokenData.token  
       }
     };
 
@@ -56,8 +60,57 @@ class RestService {
     }
 
     return  axios.put(
-      `http://localhost:8000/auth/resetPassword/${formData.username}`,
+      `https://localhost:8000/auth/resetPassword/${formData.username}`,
       Data,
+      config
+      ).then(res => {
+        const data = res;
+        return data;
+      }
+    );
+  }
+
+  sendMsg(formData){
+    const config = {
+      headers: {
+        'content-type': 'application/json',
+        'Access-Control-Allow-Origin' : '*',
+        'Authorization': 'Bearer ' + this.tokenData.token 
+      }
+    };
+    return  axios.post(
+      "https://localhost:8000/message/save",
+      formData,
+      config
+      ).then(res => {
+        const data = res;
+        return data;
+      }
+    );
+  }
+
+  sendFile(fileUpload){
+    const config = {
+      headers: {
+        'content-type': 'application/json',
+        'Access-Control-Allow-Origin' : '*',
+        'Authorization': 'Bearer ' + this.tokenData.token 
+      }
+    };
+    // console.log(fileUpload.selectedFile)
+
+    const formData = new FormData();
+     
+      // Update the formData object
+      formData.append(
+        "image",
+        fileUpload?.selectedFile,
+        fileUpload?.selectedFile?.name
+      );
+
+    return  axios.post(
+      "https://localhost:8000/image/upload",
+      formData,
       config
       ).then(res => {
         const data = res;

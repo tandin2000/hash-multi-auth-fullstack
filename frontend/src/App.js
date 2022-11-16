@@ -14,7 +14,7 @@ function App() {
 
   function logOutFunction() {
     localStorage.clear();
-    window.open("http://localhost:3000/sign-in","_self")
+    window.open("https://localhost:3000/sign-in","_self")
   }
 
   const [navHidden, setNavHidden] = useState(true);
@@ -36,7 +36,7 @@ function App() {
         <nav className="navbar navbar-expand-lg navbar-light fixed-top">
           <div className="container">
             <Link className="navbar-brand" to={'/sign-in'}>
-              <img src={img} style={{height:"50px", width:"50px"}} />
+              <img alt=" "src={img} style={{height:"50px", width:"50px"}} />
               JustForYou-SLIIT
             </Link>
             <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
@@ -58,7 +58,7 @@ function App() {
                 <li className="nav-item">
                   <Link className="nav-link" onClick={logOutFunction}>
                     Log out
-                    <img src={img2} style={{height:"30px", width:"30px"}} />
+                    <img alt=" "src={img2} style={{height:"30px", width:"30px"}} />
                   </Link>
                 </li>
                 )}
@@ -79,10 +79,10 @@ function App() {
 
           <div className="footer">
                   <center>
-                    <img src={img3} style={{height:"200px", width:"200px"}} /><br/>
+                    <img alt=" "src={img3} style={{height:"200px", width:"200px"}} /><br/>
                      [<b>Developer</b>] : [ Tandin Wangchen ] &amp;&amp; [<b>Developer</b>] : [ Nirmith Akash ]<br/>
-                    <img src={img4} style={{height:"80px", width:"100%"}} /><br/>
-                    <img src={img5} style={{height:"80px", width:"100%"}} /><br/>
+                    <img alt=" "src={img4} style={{height:"80px", width:"100%"}} /><br/>
+                    <img alt=" "src={img5} style={{height:"80px", width:"100%"}} /><br/>
                   </center>
           </div>
       </div>
