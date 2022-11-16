@@ -29,8 +29,14 @@ mongoose
     process.env.MONGODB_URI,
     { useNewUrlParser: true, useUnifiedTopology: true }
   )
-  .then((_) => console.log("Connected to DB"))
-  .catch((err) => console.error("error", err));
+  .then((_) => {
+    console.log("Connected to DB")
+    logger.info(`Connected to MongoDB Database`)
+  })
+  .catch((err) => { 
+    console.error("error", err)
+    logger.info(`Error while connecting to MongoDB database`)
+  });
 
 app.use(cors());
 app.use(express.json());
