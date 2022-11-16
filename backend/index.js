@@ -9,6 +9,7 @@ const fs = require("fs");
 const path = require("path");
 const {models} = require("mongoose");
 require("dotenv").config();
+const logger = require('./logger');
 
 const app = express();
 
@@ -33,6 +34,9 @@ app.use("/auth", userRoutes);
 app.use("/image", imageRoutes);
 app.use("/message", messageRoutes);
 
+// Limitting API request sizes - Security Optimization.
+app.use(express.json({ limit: '10MB' }));
+
 if (process.env.PROTOCOL === "https") {
   // Configuring HTTPs with TLS (Encryption)
   const secureServer = https.createServer(
@@ -43,7 +47,8 @@ if (process.env.PROTOCOL === "https") {
     app
   );
   secureServer.listen(8000, () =>
-    console.log("Secure server running on port 8000")
+    console.log("Secure server running on port 8000"),
+    logger.info(`Server started and running on http://localhost:8000`)
   );
 } else if (process.env.PROTOCOL === "http") {
   app.listen(8000, () => console.log("Server running on port 8000"));
