@@ -1,13 +1,13 @@
 const axios = require('axios')
 
-describe("POST @ /message/save endpoint", () => {
-    it("Wokers should be able to save messeges", async () => {
+describe("POST @ /auth/login", () => {
+    it("Users should be able to login", async () => {
       try {
         const res = axios.post(
-          "https://localhost:8000/message/save",
+          "https://localhost:8000/auth/login",
           {
-            message: "Worker saving messeges",
-            userId: "6368c449408089790aec9837",
+            username: "nirmith",
+            password: "apple",
           },
           {
             headers: {
