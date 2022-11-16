@@ -16,7 +16,7 @@ router.post("/save", async (req, res) => {
             "message": body.message,
         }
         const message = new Message(MessageBody);
-        logger.info(`Message saved : , ${MessageBody}`);
+        logger.info(`Message saved : , ${MessageBody}`); 
         message.save().then((doc) => res.status(200).send(doc));
     }
 });

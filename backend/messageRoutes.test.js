@@ -11,8 +11,8 @@ describe("POST @ /message/save endpoint", () => {
           },
           {
             headers: {
-              authorization:
-                "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im5pcm1pdGgiLCJpYXQiOjE2Njg2MTIxOTZ9.1YwhJOAB4xTecgmmv-u0yFxZdQNKHL1jsil1IZV2gYw",
+              Authorization:
+                "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im5pcm1pdGgiLCJpYXQiOjE2Njg2MTU4MTB9.q1HSgo5X7irLaSYWUIGVPyMfMJJLybiiwspMaarjKW8",
             },
           }
         );
